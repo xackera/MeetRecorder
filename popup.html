@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Meet Recorder</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+      }
+      body {
+        width: 260px;
+        margin: 0;
+        padding: 16px;
+        font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+        background: #ffffff;
+        color: #202124;
+      }
+      @media (prefers-color-scheme: dark) {
+        body { background: #202124; color: #e8eaed; }
+      }
+      h1 {
+        font-size: 15px;
+        margin: 0 0 4px;
+      }
+      p.hint {
+        font-size: 12px;
+        color: #5f6368;
+        margin: 0 0 14px;
+        line-height: 1.4;
+      }
+      @media (prefers-color-scheme: dark) {
+        p.hint { color: #9aa0a6; }
+      }
+      button {
+        width: 100%;
+        padding: 10px 12px;
+        font-size: 14px;
+        font-weight: 600;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background 0.15s;
+      }
+      button:disabled { opacity: 0.5; cursor: default; }
+      #startBtn { background: #1a73e8; color: #fff; }
+      #startBtn:hover:not(:disabled) { background: #1765cc; }
+      #stopBtn { background: #d93025; color: #fff; }
+      #stopBtn:hover:not(:disabled) { background: #b7271d; }
+      .status {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 13px;
+        margin-bottom: 12px;
+      }
+      .dot {
+        width: 10px; height: 10px; border-radius: 50%;
+        background: #9aa0a6;
+      }
+      .dot.rec {
+        background: #d93025;
+        animation: pulse 1.2s infinite;
+      }
+      @keyframes pulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.3; }
+      }
+      .error {
+        color: #d93025;
+        font-size: 12px;
+        margin-top: 10px;
+        min-height: 14px;
+      }
+      .mic-toggle {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 13px;
+        margin-bottom: 12px;
+        cursor: pointer;
+        user-select: none;
+      }
+      .mic-toggle input { cursor: pointer; }
+    </style>
+  </head>
+  <body>
+    <h1>🎥 Meet Recorder</h1>
+    <p class="hint">
+      Откройте вкладку с Google Meet и нажмите «Начать запись». Захватываются
+      видео и звук вкладки. Файл сохраняется в формате .webm.
+    </p>
+
+    <div class="status">
+      <span class="dot" id="statusDot"></span>
+      <span id="statusText">Готов к записи</span>
+    </div>
+
+    <label class="mic-toggle">
+      <input type="checkbox" id="micToggle" checked />
+      Записывать микрофон (ваш голос)
+    </label>
+
+    <button id="startBtn">● Начать запись</button>
+    <button id="stopBtn" style="display:none">■ Остановить и сохранить</button>
+
+    <div class="error" id="error"></div>
+
+    <script src="popup.js"></script>
+  </body>
+</html>
